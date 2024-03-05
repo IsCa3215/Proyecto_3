@@ -10,7 +10,7 @@ public class Audible extends Media {
   int duracion;
   Estilo categoria;
   LocalDate fechaLanzamiento;
-  ArrayList<Integer> votos;
+  ArrayList<Integer> votos = new ArrayList<Integer>();
 
   public Audible(
     String nombre,
@@ -40,14 +40,17 @@ public class Audible extends Media {
 
 @Override
 public String toString() {
-    return "Audible [productora=" + productora + ", participantes=" + Arrays.toString(participantes) + ", duracion="
-            + duracion + ", fechaLanzamiento=" + fechaLanzamiento + ", votos=" + votos + "]";
+    return "\n"+"Nombre: " + nombre + " productora:" + productora + ", participantes:" + Arrays.toString(participantes) + ", duracion:"
+            + duracion + ", fechaLanzamiento:" + fechaLanzamiento + ", votos:" + votos;
 }
+
 
 public void setProductora(String productora) {
   this.productora = productora;
 }
-
+public int getDuracion() {
+    return duracion;
+}
 public void setParticipantes(String[] participantes) {
   this.participantes = participantes;
 }
@@ -67,7 +70,7 @@ public boolean votar(int voto){
   if (voto < 0 || voto > 10) {
     throw new IllegalArgumentException("El valor en el parámetro votar no es válido");
   }
-  this.votos.add(0, voto);
+  this.votos.add(voto);
   return true;
 }
 }

@@ -15,6 +15,9 @@ public abstract class Media {
     LocalDate fechaAlta,
     boolean esContenidoPremium
   ) {
+    if (calificacionEdad > 18 || calificacionEdad < 0) {
+      throw new IllegalArgumentException("No se ha introducido un valor reconocible");
+    }
     this.nombre = nombre;
     this.autor = autor;
     this.calificacionEdad = calificacionEdad;
@@ -22,9 +25,9 @@ public abstract class Media {
     this.esContenidoPremium = esContenidoPremium;
   }
 
-  public Media(String autor2, int calificacionEdad2, LocalDate fechaAlta2, String nombre2) {
-    //TODO Auto-generated constructor stub
-  }
+  // public Media(String autor2, int calificacionEdad2, LocalDate fechaAlta2, String nombre2) {
+    
+  // }
 
   //GETTERS
   public String getNombre() {
@@ -66,5 +69,11 @@ public abstract class Media {
 
   public void setEsContenidoPremium(boolean esContenidoPremium) {
     this.esContenidoPremium = esContenidoPremium;
+  }
+
+  @Override
+  public String toString() {
+    return "Media [nombre=" + nombre + ", autor=" + autor + ", calificacionEdad=" + calificacionEdad + ", fechaAlta="
+        + fechaAlta + ", esContenidoPremium=" + esContenidoPremium + "]";
   }
 }
