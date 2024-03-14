@@ -1,61 +1,110 @@
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.time.LocalDate;
 
-public class Album extends Media{
+public class Album extends Media {
     String descripcion;
     TipoAlbum tipo;
     LocalDate fechaLanzamiento;
     ArrayList<Audible> pistas = new ArrayList<Audible>();
     int votosPositivos;
     int votosNegativos;
-    public Album(String nombre, String autor, int calificacionEdad, LocalDate fechaAlta, boolean esContenidoPremium, String descripcion, TipoAlbum tipo, LocalDate fechaLanzamiento, ArrayList<Audible> pistas){
-        super(nombre, autor, calificacionEdad, fechaAlta,esContenidoPremium );
+
+    // Constructor
+    public Album(String nombre, String autor, int calificacionEdad, LocalDate fechaAlta, boolean esContenidoPremium,
+            String descripcion, TipoAlbum tipo, LocalDate fechaLanzamiento, ArrayList<Audible> pistas) {
+        super(nombre, autor, calificacionEdad, fechaAlta, esContenidoPremium);
         if (!comprobarDescripcion(descripcion)) {
-            throw new IllegalArgumentException("La descripción sobrepasa el limite de 200 caracteres");
+            throw new IllegalArgumentException("La descripción sobrepasa el límite de 200 caracteres");
         }
 
         this.descripcion = descripcion;
         this.tipo = tipo;
         this.fechaLanzamiento = fechaLanzamiento;
         this.pistas = pistas;
-        
-        
-
     }
 
-    public int duracionTotal(){
+    // Constructor de copia
+    public Album(Album otroAlbum) {
+        this(otroAlbum.getNombre(), otroAlbum.getAutor(), otroAlbum.getCalificacionEdad(),
+                otroAlbum.getFechaAlta(), otroAlbum.esContenidoPremium(), otroAlbum.getDescripcion(),
+                otroAlbum.getTipo(), otroAlbum.getFechaLanzamiento(), new ArrayList<Audible>(otroAlbum.getPistas()));
+    }
+
+    // Método para obtener la descripción
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    // Método para establecer la descripción
+    public void setDescripcion(String descripcion) {
+        if (!comprobarDescripcion(descripcion)) {
+            throw new IllegalArgumentException("La descripción sobrepasa el límite de 200 caracteres");
+        }
+        this.descripcion = descripcion;
+    }
+
+    // Método para obtener el tipo
+    public TipoAlbum getTipo() {
+        return tipo;
+    }
+
+    // Método para establecer el tipo
+    public void setTipo(TipoAlbum tipo) {
+        this.tipo = tipo;
+    }
+
+    // Método para obtener la fecha de lanzamiento
+    public LocalDate getFechaLanzamiento() {
+        return fechaLanzamiento;
+    }
+
+    // Método para establecer la fecha de lanzamiento
+    public void setFechaLanzamiento(LocalDate fechaLanzamiento) {
+        this.fechaLanzamiento = fechaLanzamiento;
+    }
+
+    // Método para obtener la duración total del álbum en segundos
+    public int duracionTotal() {
         int res = 0;
-        for (int i = 0; i < pistas.size(); i++) {
-            int x = pistas.get(i).getDuracion();
-            res = res+=x;
-            
+        for (Audible pista : pistas) {
+            res += pista.getDuracion();
         }
         return res;
-        
-    }
-    
-    @Override
-    public String toString() {
-        return "[Album] "+ "\n" + "descripcion:" + descripcion + "\n" + " tipo:" + tipo + "\n" + ", fechaLanzamiento:" + fechaLanzamiento + "\n"
-                + ", votosPositivos:" + votosPositivos + "\n" + ", votosNegativos:" + votosNegativos + "\n"
-                + "\n"+ "pistas:" + pistas + "\n" + " duración del album: "+duracionTotal();
     }
 
-    public void meGusta(boolean like){
-        if(like){
-          votosPositivos = 1;
-        }else if (!like) {
-          votosNegativos = 1;
-        }
-        
-      }
-    public boolean comprobarDescripcion(String desc){
-        boolean comprobar = false;
-        if (desc.length()>200) {
-            comprobar = false;
+    // Método para obtener el número de canciones del álbum
+    public int numeroCanciones() {
+        return pistas.size();
+    }
+
+    // Método para obtener una canción del álbum por índice
+    public Audible getCancion(int indice) {
+        if (indice >= 0 && indice < pistas.size()) {
+            return pistas.get(indice);
         } else {
-            comprobar = true;
+            return null;
         }
-        return comprobar;
+    }
+
+    // Método para agregar un voto positivo o negativo al álbum
+    public void meGusta(boolean like) {
+        if (like) {
+            votosPositivos++;
+        } else {
+            votosNegativos++;
+        }
+    }
+
+    // Método para comprobar la descripción
+    private boolean comprobarDescripcion(String desc) {
+        return desc.length() <= 200;
+    }
+
+    // Método toString() sobrescrito
+    @Override
+    public String toString() {
+        return "[Album] \n" + "descripcion: " + descripcion + "\n" + "tipo: " + tipo + "\n" + "fechaLanzamiento: "
+                + fechaLanzamiento + "\n" + "votosPositivos: " + votosPositivos + "\n" + "votosNegativos: "
+                + votosNegativos + "\n" + "pistas: " + pistas + "\n" + "duración del album: " + duracionTotal();
     }
 }
