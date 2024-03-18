@@ -21,13 +21,15 @@ public class Audible extends Media {
     String productora,
     String[] participantes,
     int duracion,
-    Estilo categoria
+    Estilo categoria,
+    LocalDate fechaLanzamiento
   ) {
     super(nombre, autor, calificacionEdad, fechaAlta, esContenidoPremium);
     this.productora = productora;
     this.participantes = participantes;
     this.duracion = duracion;
     this.categoria = categoria;
+    this.fechaLanzamiento = fechaLanzamiento;
     
   }
   public Audible(Audible copia){
@@ -50,6 +52,18 @@ public void setProductora(String productora) {
 }
 public int getDuracion() {
     return duracion;
+}
+public String getProductora() {
+  return productora;
+}
+public String[] getParticipantes() {
+  return participantes;
+}
+public Estilo getCategoria() {
+  return categoria;
+}
+public LocalDate getFechaLanzamiento() {
+  return fechaLanzamiento;
 }
 public void setParticipantes(String[] participantes) {
   this.participantes = participantes;
