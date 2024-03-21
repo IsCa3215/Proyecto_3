@@ -64,6 +64,20 @@ public class Temporada {
     public Audible getEpisodio(int posicion) {
         return episodios.get(posicion);
     }
-    
+    public boolean setEpisodio(int posicion, LocalDate fechaEmision, String nombre){
+        if (posicion >= 0 && posicion < episodios.size()) {
+            Audible episodio = episodios.get(posicion);
+            episodio.setFechaLanzamiento(fechaEmision);
+            episodio.setNombre(nombre);
+            return true;
+        }
+        return false;
+    }
+    public boolean votar(int posicionEpisodio, int voto){
+        return false;
+    }
+    public ArrayList<Audible> episodiosMejorValorados(int n){
+        return null;
+    }
 
 }

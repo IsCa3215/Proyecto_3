@@ -20,15 +20,26 @@ public class Podcast extends Media {
     }
 
     public int getDuracion(){
-        return 0;
+        int duracionTotal = 0;
+        for (Temporada temporada : temporadas) {
+            for (Audible episodio : temporada.episodios) {
+                duracionTotal += episodio.getDuracion();
+            }
+        }
+        return duracionTotal;
     }
+    //incompleto
     public boolean añadirTemporada(LocalDate fechaEstreno, LocalDate fechaFinalizacion){
+        temporadas.add(new Temporada(fechaEstreno, fechaFinalizacion));
         return false;
     }
+    //incompleto
     public boolean eliminarTemporada(int n){
+         temporadas.remove(n);
         return false;
     }
     public boolean añadirEpisodio(int nTemporada, Audible episodio){
+        
         return false;
     }
     public boolean eliminarEpisodio(int nTemporada, String titulo){
